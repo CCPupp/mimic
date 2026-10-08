@@ -64,6 +64,29 @@ go run .            # macOS and Windows
 go run -tags gtk3 . # Linux
 ```
 
+### Linux setup
+
+Install the compiler, `pkg-config`, and the GTK and WebKitGTK development
+packages before the first build. `pkg-config` is how the build finds the GTK
+libraries, and the build stops early without it.
+
+```
+# Debian and Ubuntu
+sudo apt install build-essential pkg-config libgtk-3-dev libwebkit2gtk-4.1-dev
+
+# Fedora
+sudo dnf install gcc pkgconf-pkg-config gtk3-devel webkit2gtk4.1-devel
+```
+
+Go downloads the module dependencies on the first build. To fetch them ahead of
+time, run `go mod download` in `ui/`. Then start the app from `ui/` with the
+`gtk3` tag, which selects GTK 3 and WebKitGTK 4.1 over the GTK 4 default:
+
+```
+cd mimic/ui
+go run -tags gtk3 .
+```
+
 ## How the repository is laid out
 
 The repository holds two Go modules, each versioned and released on its own.
